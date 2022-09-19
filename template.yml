@@ -17,12 +17,17 @@ Resources:
               Federated: !Ref OidcProviderGitHub
             Condition:
               StringLike:
-                token.actions.githubusercontent.com:sub: repo:luciferous-artemis-library/*
+                token.actions.githubusercontent.com:sub: repo:project-artemis-library/*
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess
 
   BucketLambdaArtifact:
     Type: AWS::S3::Bucket
+    Properties:
+      LifecycleConfiguration:
+        Rules:
+          - ExpirationInDays: 3
+            Status: Enabled
 
 Outputs:
   RoleArnGitHubActions:
